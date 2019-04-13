@@ -1,0 +1,14 @@
+@import '~sass/variables';
+
+.navbar {
+	background-color: #0F4392!important;
+}
+
+.nav-link {
+	color:#FF8B8B!important;
+	transition: all .4s ease-out;
+	
+	&:hover {
+		color:lighten(#FF8B8B, 20%)!important;
+	}
+}

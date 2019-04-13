@@ -1,0 +1,36 @@
+<h3>{{title}}</h3>
+
+
+<h4 class="text-right">Total {{ total | currency : 'GBP' }}</h4>
+<button class="btn" (click)="viewCart()">View Cart</button>
+<div class="row">
+	<div class="col-md-6 col-lg-4 p-3" *ngFor="let item of items">
+		<div class="card">
+		<img class="card-img-top" src="{{item.img}}" alt="Card image cap">
+		<div class="p-3">
+			<h3 class="card-title text-center"> {{item.title}} </h3>
+			<!-- <p class="card-text"><img class="img-fluid" src="{{item.img}}" alt="item"></p> -->
+			<p class="card-text">Description: {{item.description}} </p>
+			<p *ngIf="item.quantity > 0" class="card-text text-right"> Quantity: {{item.quantity}} </p>
+			<!-- If item.sold is set to True then item is out of Stock -->
+			<p *ngIf="item.sold" class="card-text"> This is out of stock </p>
+
+			<!-- ng if with ng template -->
+			<div *ngIf="item.featured; then featured; else normal" class="card-text"></div>
+			<ng-template #featured>
+				<p class="text-center alert-danger">Featured Price: {{ item.featuredPrice | currency : 'GBP' }}</p>
+			</ng-template>
+			<ng-template #normal>
+				<p class="text-right">Price: {{ item.price | currency : 'GBP' }}</p>
+			</ng-template>
+			<!-- End ng if with ng template -->
+			
+
+			<button (click)="buyItem(item)" *ngIf="item.inStock && item.quantity > 0" href="#" class="btn btn-primary btn-block">Buy</button>
+			<p *ngIf="item.quantity <= 0" class="alert-danger text-center p-2">Out of Stock</p>
+			<button class="btn btn-block btn-danger text-center" *ngIf="item.itemSold > 0" (click)="removeItem(item)">Remove Item</button>
+		</div>
+	</div>
+</div>
+
+
